@@ -3,13 +3,13 @@ class Student
 attr_accessor(:id, :name)
 
   def initialize(options)
-    @id = options['id'].to_s
+    @id = options['id'].to_i
     @name = options['name']
   end
 
 
   def save
-    sql = "INSERT INTO students (name) VALUES '#{name}' RETURNING *"
+    sql = "INSERT INTO students (name) VALUES ('#{name}') RETURNING *"
     return Student.map_item(sql)
   end
 
@@ -34,7 +34,7 @@ attr_accessor(:id, :name)
 
 
   def self.map_item
-    Student.map_items(sql).first
+    return Student.map_items(sql).first
   end
 
 end

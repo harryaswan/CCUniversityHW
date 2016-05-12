@@ -10,7 +10,7 @@ attr_accessor(:id, :name)
 
   def save
     sql = "INSERT INTO students (name) VALUES ('#{name}') RETURNING *"
-    return Student.map_item(sql)
+    return Student.map_items(sql, false)
   end
 
 
@@ -31,16 +31,14 @@ attr_accessor(:id, :name)
     return Course.map_items(sql)
   end
 
-
-  def self.map_items(sql)
-    students = SqlRunner.run(sql)
-    result = students.map {|student| Student.new(student)}
-    return result
-  end
-
-
-  def self.map_item(sql)
-    return Student.map_items(sql).first
+  def self.map_items(sql, multi=true) #2nd parameter returns true if no
+      result = SqlRunner.run(sql)     #2nd argument is passed when method
+      res = result.map {|r| Student.new(r)} #called
+      if multi
+          return res
+      else
+          return res.first
+      end
   end
 
 end

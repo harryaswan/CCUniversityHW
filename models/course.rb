@@ -8,7 +8,7 @@ class Course
 
     def save()
         sql = "INSERT INTO courses (name) VALUES ('#{@name}') RETURNING *;"
-        return Course.map_item(sql)
+        return Course.map_items(sql, false)
     end
 
     def students()
@@ -26,14 +26,14 @@ class Course
         SqlRunner.run(sql)
     end
 
-    def self.map_items(sql)
-        courses = SqlRunner.run(sql)
-        return courses.map{|c| Course.new(c)}
+    def self.map_items(sql, multi=true) #2nd parameter returns true if no
+        result = SqlRunner.run(sql)     #2nd argument is passed when method
+        res = result.map {|r| Course.new(r)} #called
+        if multi
+            return res
+        else
+            return res.first
+        end
     end
-
-    def self.map_item(sql)
-        return Course.map_items(sql).first
-    end
-
 
 end

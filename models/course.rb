@@ -12,7 +12,7 @@ class Course
     end
 
     def students()
-        sql = "SELECT s.* FROM students s INNER JOIN attending a ON s.id = a.student_id;"
+        sql = "SELECT s.* FROM students s INNER JOIN attending a ON s.id = a.student_id WHERE a.course_id = #{@id};"
         return Student.map_items(sql)
     end
 

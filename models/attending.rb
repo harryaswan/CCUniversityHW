@@ -20,7 +20,7 @@ class Attending
 
     def self.all()
         sql = "SELECT * FROM attending;"
-        return Attending.map_item(sql)
+        return Attending.map_items(sql)
     end
 
     def self.map_items(sql)

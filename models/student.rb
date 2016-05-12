@@ -26,9 +26,9 @@ attr_accessor(:id, :name)
   end
 
 
-  def courses
-
-  end
+  # def courses
+  #   sql = 
+  # end
 
 
   def self.map_items(sql)

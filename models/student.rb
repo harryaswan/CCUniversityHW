@@ -27,18 +27,18 @@ attr_accessor(:id, :name)
 
 
   def courses
-    
+
   end
 
 
-  def self.map_items
+  def self.map_items(sql)
     students = SqlRunner.run(sql)
-    result = students.map {|student| Student.new}
+    result = students.map {|student| Student.new(student)}
     return result
   end
 
 
-  def self.map_item
+  def self.map_item(sql)
     return Student.map_items(sql).first
   end
 

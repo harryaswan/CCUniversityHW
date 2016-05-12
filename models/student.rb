@@ -26,9 +26,10 @@ attr_accessor(:id, :name)
   end
 
 
-  # def courses
-  #   sql = 
-  # end
+  def courses
+    sql = "SELECT c.* from courses c INNER JOIN attending a on a.course_id=c.id WHERE a.student_id = #{@id};"
+    return Course.map_items(sql)
+  end
 
 
   def self.map_items(sql)
